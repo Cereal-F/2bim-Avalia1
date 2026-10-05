@@ -2,6 +2,24 @@ import { gerarDesenho, numeroValido } from "../../lib/desenho.js";
 
 export async function onRequestPost(context) {
   try {
+    let corpo;
+
+    try {
+      corpo = await context.request.json();
+    } catch {
+      return new Response("JSON inválido", {
+        status: 400,
+      });
+    }
+
+    const numero = Number(corpo.numero);
+
+    if (!numeroValido(numero)) {
+      return new Response("Número inválido", {
+        status: 400,
+      });
+    }
+
     const authorization =
       context.request.headers.get("Authorization");
 
@@ -15,7 +33,7 @@ export async function onRequestPost(context) {
 
     const respostaGoogle = await fetch(
       "https://oauth2.googleapis.com/tokeninfo?id_token=" +
-        encodeURIComponent(token)
+      encodeURIComponent(token)
     );
 
     if (!respostaGoogle.ok) {
@@ -32,24 +50,6 @@ export async function onRequestPost(context) {
     ) {
       return new Response("Token inválido", {
         status: 401,
-      });
-    }
-
-    let corpo;
-
-    try {
-      corpo = await context.request.json();
-    } catch {
-      return new Response("JSON inválido", {
-        status: 400,
-      });
-    }
-
-    const numero = Number(corpo.numero);
-
-    if (!numeroValido(numero)) {
-      return new Response("Número inválido", {
-        status: 400,
       });
     }
 
