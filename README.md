@@ -22,6 +22,6 @@ Framework preset: `None`. Build command: vazio. Build output directory: `public`
 
 ## Identificação (preencha após o fork)
 
-Nome: 
-RA: 
-URL: https://
+Nome: Pedro Favoreto Alves
+RA: 2026108177
+URL: https://2bim-avalia1-c2t.pages.dev/
